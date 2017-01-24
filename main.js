@@ -6,7 +6,7 @@ var editor = {
     obj.elm = _.createElement('div');
     this.elm.appendChild(obj.elm);
     obj.elm.classList.add('editor');
-    obj.editor = ace.edit(elm);
+    obj.editor = ace.edit(obj.elm);
     obj.editor.getSession().setMode('ace/modes/' + type);
     obj.editor.setTheme('ace/themes/' + theme);
     this.editors.push(obj);
