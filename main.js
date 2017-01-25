@@ -17,8 +17,8 @@ var editors = {
     this.elm.appendChild(obj.elm);
     obj.elm.classList.add('editor');
     obj.editor = ace.edit(obj.elm);
-    obj.editor.getSession().setMode('ace/modes/' + type);
-    obj.editor.setTheme('ace/themes/' + theme);
+    obj.editor.getSession().setMode('ace/mode/' + type);
+    obj.editor.setTheme('ace/theme/' + theme);
     this.editors.push(obj);
     return obj;
   },
