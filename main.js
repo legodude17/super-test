@@ -15,11 +15,10 @@ var editors = {
     var obj = Object.create(this);
     obj.elm = _.createElement('div');
     this.elm.appendChild(obj.elm);
-    var x = _.createElement('span');
+    var x = _.createElement('button');
     var elm = _.createElement('div');
     obj.elm.appendChild(elm);
     obj.elm.appendChild(x);
-    elm.classList.add('editor');
     x.classList.add('x');
     obj.elm.classList.add('editor');
     x.innerHTML = '&times;';
