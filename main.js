@@ -31,7 +31,7 @@ var editors = {
     obj.editor.setOptions({
         enableBasicAutocompletion: true,
         enableSnippets: true,
-        enableLiveAutocompletion: false
+        enableLiveAutocompletion: true
     });
     this.editors.push(obj);
     return obj;
