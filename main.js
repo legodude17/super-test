@@ -9,6 +9,7 @@ var fs = (function (){
 })();
 
 var saving = _.getElementById('saving');
+var theme = 'chrome';
 
 var editors = {
   create(type, theme, onDel) {
@@ -43,7 +44,7 @@ var extToType = {
 
 function add(fileName) {
   var type = extToType[fileName.split('.').pop()];
-  var editor = editors.create(type, 'chrome', () => {
+  var editor = editors.create(type, theme, () => {
     del(fileName);
     editors.elm.removeChild(editor.elm);
   });
@@ -102,4 +103,16 @@ function del(file) {
     file,
     (err, res) => err ? reject(err) : resolve(res)
   ));
+}
+
+function changeTheme(newTheme) {
+  theme = newTheme;
+  editors.editors.forEach((v) => v.editor.setTheme(theme));
+}
+
+document.getElementById('theme').oninput = function () {
+  for (var i = 0, arr = document.getElementById('theme').children, choice = ''; i < arr.length; i ++) {
+    arr[i].selected&&(choice=arr[i].id)
+  }
+  changeTheme(choice);
 }
