@@ -43,7 +43,10 @@ var extToType = {
 
 function add(fileName) {
   var type = extToType[fileName.split('.').pop()];
-  var editor = editors.create(type, 'chrome', () => del(fileName));
+  var editor = editors.create(type, 'chrome', () => {
+    del(fileName);
+    editors.elm.removeChild(editor.elm);
+  });
   editors.editorsByName[fileName] = editor;
   try {
     editor.editor.setValue(fs.readFileSync(fileName, 'utf-8'));
