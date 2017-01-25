@@ -34,8 +34,7 @@ var extToType = {
   'css': 'css'
 };
 
-function add() {
-  var fileName = prompt('Filename?');
+function add(fileName) {
   var type = extToType[fileName.split('.').pop()];
   var editor = editors.create(type, 'chrome');
   editors.editorsByName[fileName] = editor;
@@ -61,7 +60,10 @@ function save() {
 
 function saveWithUI() {
   saving.innerHTML = "Saving...";
-  return save().then(() => saving.innerHTML = "All changes saved").catch(err => {throw err});
+  return save().then(() => saving.innerHTML = "All changes saved").catch(err => {
+    console.error(err);
+    saving.innerHTML = "Error saving: " + err.message
+  });
 }
 
 function compile() {
@@ -83,4 +85,11 @@ function bundle(main) {
     format: 'iife',
     moduleName: "mian"
   }), er => {throw er}).then(res => _.getElementById('output').innerHTML = res.code);
+}
+
+function del(file) {
+  return new Promise((resolve, reject) => fs.unlink(
+    file,
+    (err, res) => err ? reject(err) : resolve(res)
+  ));
 }
