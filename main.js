@@ -39,11 +39,12 @@ function add() {
   var type = extToType[fileName.split('.').pop()];
   var editor = editors.create(type, 'chrome');
   editors.editorsByName[fileName] = editor;
-  return new Promise((resolve, reject) => fs.writeFile(
-    fileName,
-    '',
-    (err, res) => err ? reject(err) : resolve(res))
-  );
+  try {
+    editor.setValue(fs.readFileSync(fileName, 'utf-8'));
+  } catch (e) {
+    console.debug(e);
+    fs.writeFileSync(fileName, '');  
+  }
 }
 
 function save() {
@@ -61,4 +62,12 @@ function save() {
 function saveWithUI() {
   saving.innerHTML = "Saving...";
   return save().then(() => saving.innerHTML = "All changes saved").catch(err => {throw err});
+}
+
+function compile() {
+  
+}
+
+function bundle() {
+  
 }
