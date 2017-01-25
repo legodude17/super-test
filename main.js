@@ -29,7 +29,9 @@ var editors = {
     obj.editor.getSession().setMode('ace/mode/' + type);
     obj.editor.setTheme('ace/theme/' + theme);
     obj.editor.setOptions({
-      enableBasicAutocompletion: true
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        enableLiveAutocompletion: false
     });
     this.editors.push(obj);
     return obj;
