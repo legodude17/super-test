@@ -8,6 +8,8 @@ var fs = (function (){
   return obj.require('fs');
 });
 
+var saving = _.getElementById('saving');
+
 var editors = {
   create(type, theme) {
     var obj = Object.create(this);
@@ -33,7 +35,7 @@ var extToType = {
 
 function add() {
   var fileName = prompt('Filename?');
-  var type = extToType(fileName.split('.').pop());
+  var type = extToType[fileName.split('.').pop()];
   var editor = editors.create(type);
   return new Promise((resolve, reject) => fs.writeFile(fileName, '', (err, res) => err ? reject(err) : resolve(res)));
 }
