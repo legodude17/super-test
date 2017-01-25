@@ -11,12 +11,20 @@ var fs = (function (){
 var saving = _.getElementById('saving');
 
 var editors = {
-  create(type, theme) {
+  create(type, theme, onDel) {
     var obj = Object.create(this);
     obj.elm = _.createElement('div');
     this.elm.appendChild(obj.elm);
+    var x = _.createElement('span');
+    var elm = _.createElement('div');
+    obj.elm.appendChild(elm);
+    obj.elm.appendChild(x);
+    elm.classList.add('editor');
+    x.classList.add('x');
     obj.elm.classList.add('editor');
-    obj.editor = ace.edit(obj.elm);
+    x.innerHTML = '&times;';
+    x.onclick = onDel;
+    obj.editor = ace.edit(elm);
     obj.editor.getSession().setMode('ace/mode/' + type);
     obj.editor.setTheme('ace/theme/' + theme);
     this.editors.push(obj);
@@ -36,7 +44,7 @@ var extToType = {
 
 function add(fileName) {
   var type = extToType[fileName.split('.').pop()];
-  var editor = editors.create(type, 'chrome');
+  var editor = editors.create(type, 'chrome', () => del(fileName));
   editors.editorsByName[fileName] = editor;
   try {
     editor.editor.setValue(fs.readFileSync(fileName, 'utf-8'));
