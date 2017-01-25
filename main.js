@@ -40,7 +40,7 @@ function add() {
   var editor = editors.create(type, 'chrome');
   editors.editorsByName[fileName] = editor;
   try {
-    editor.setValue(fs.readFileSync(fileName, 'utf-8'));
+    editor.editor.setValue(fs.readFileSync(fileName, 'utf-8'));
   } catch (e) {
     console.debug(e);
     fs.writeFileSync(fileName, '');  
