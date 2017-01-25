@@ -6,7 +6,7 @@ var fs = (function (){
   var lsfs = new BrowserFS.FileSystem.LocalStorage();
   BrowserFS.initialize(lsfs);
   return obj.require('fs');
-});
+})();
 
 var saving = _.getElementById('saving');
 
@@ -23,7 +23,8 @@ var editors = {
     return obj;
   },
   editors: [],
-  elm: _.getElementById('editors')
+  elm: _.getElementById('editors'),
+  editorsByName: Object.create(null)
 };
 
 var extToType = {
@@ -36,6 +37,23 @@ var extToType = {
 function add() {
   var fileName = prompt('Filename?');
   var type = extToType[fileName.split('.').pop()];
-  var editor = editors.create(type);
-  return new Promise((resolve, reject) => fs.writeFile(fileName, '', (err, res) => err ? reject(err) : resolve(res)));
+  var editor = editors.create(type, 'chrome');
+  editors.editorsByName[fileName] = editor;
+  return new Promise((resolve, reject) => fs.writeFile(
+    fileName,
+    '',
+    (err, res) => err ? reject(err) : resolve(res))
+  );
+}
+
+function save() {
+  var ps = [];
+  for (var i in editors.editorsByName) {
+    ps.push(new Promise((resolve, reject) => fs.writeFile(
+      i,
+      editors.editorsByName[i].getValue(),
+      (err, res) => err ? reject(err) : resolve(res))
+    ));
+  }
+  return Promise.all(ps);
 }
