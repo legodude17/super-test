@@ -57,3 +57,8 @@ function save() {
   }
   return Promise.all(ps);
 }
+
+function saveWithUI() {
+  saving.innerHTML = "Saving...";
+  return save().then(() => saving.innerHTML = "All changes saved").catch(() => saving.innerHMTL = "Error saving...");
+}
