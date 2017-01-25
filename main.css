@@ -1,9 +1,12 @@
 .editor {
-  width: 50%;
-  height: 300px;
   margin-bottom: 10px;
 }
 
+.ace_editor {
+  width: 50%;
+  height: 300px;
+}
+
 .x {
-  
+  margin: 10px;
 }
