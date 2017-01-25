@@ -51,7 +51,7 @@ function save() {
   for (var i in editors.editorsByName) {
     ps.push(new Promise((resolve, reject) => fs.writeFile(
       i,
-      editors.editorsByName[i].getValue(),
+      editors.editorsByName[i].editor.getValue(),
       (err, res) => err ? reject(err) : resolve(res))
     ));
   }
