@@ -107,7 +107,7 @@ function del(file) {
 
 function changeTheme(newTheme) {
   theme = newTheme;
-  editors.editors.forEach((v) => v.editor.setTheme(theme));
+  editors.editors.forEach((v) => v.editor.setTheme('ace/theme/' + theme));
 }
 
 document.getElementById('theme').oninput = function () {
