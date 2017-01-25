@@ -10,3 +10,11 @@
 .x {
   margin: 10px;
 }
+
+#editors {
+  float: left;
+}
+
+#options {
+  float: right;
+}
