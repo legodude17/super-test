@@ -68,6 +68,19 @@ function compile() {
   
 }
 
-function bundle() {
-  
+function bundle(main) {
+  return rollup.rollup({
+    entry: main,
+    plugins: [{
+      load(id){
+        return fs.readFileSync(id, 'utf-8')
+      },
+      resolveId(importee, importer){
+        return importee + '.js';
+      }
+    }]
+  }).then(bundle => bundle.generate({
+    format: 'iife',
+    moduleName: "mian"
+  }), er => {throw er}).then(res => _.getElementById('output').innerHTML = res.code);
 }
