@@ -60,5 +60,5 @@ function save() {
 
 function saveWithUI() {
   saving.innerHTML = "Saving...";
-  return save().then(() => saving.innerHTML = "All changes saved").catch(err => throw err);
+  return save().then(() => saving.innerHTML = "All changes saved").catch(err => {throw err});
 }
