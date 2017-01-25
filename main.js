@@ -10,6 +10,7 @@ var fs = (function (){
 
 var saving = _.getElementById('saving');
 var theme = 'chrome';
+ace.require("ace/ext/language_tools");
 
 var editors = {
   create(type, theme, onDel) {
@@ -27,6 +28,9 @@ var editors = {
     obj.editor = ace.edit(elm);
     obj.editor.getSession().setMode('ace/mode/' + type);
     obj.editor.setTheme('ace/theme/' + theme);
+    obj.editor.setOptions({
+      enableBasicAutocompletion: true
+    });
     this.editors.push(obj);
     return obj;
   },
