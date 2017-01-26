@@ -122,3 +122,9 @@ document.getElementById('theme').oninput = function () {
   }
   changeTheme(choice);
 }
+
+fs.readdir('/', (err, res) => {
+  if (!err) {
+    res.forEach(add);
+  }
+});
