@@ -84,7 +84,13 @@ function saveWithUI() {
 }
 
 function compile() {
-  
+  return new Promise((resolve, reject) => fs.readFile(
+    'index.html',
+    'utf-8',
+    (err, res) => err ? reject(err) : resolve(res)
+  ).then((res) => {
+    
+  })
 }
 
 function bundle(main) {
